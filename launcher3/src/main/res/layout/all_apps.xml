@@ -21,7 +21,9 @@
     android:id="@+id/apps_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/all_app_background"
+    >
 
     <!-- Both android:focusable and android:focusableInTouchMode are needed for
          the view to get focus change events. -->
@@ -37,7 +39,8 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
         <FrameLayout
             android:id="@+id/all_apps_reveal"
             android:layout_width="match_parent"
@@ -45,13 +48,18 @@
             android:layout_gravity="center"
             android:focusable="false"
             android:elevation="2dp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:background="#00f0f0"/>
         <include
             layout="@layout/all_apps_container"
             android:id="@+id/all_apps_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:cacheColorHint="#00000000"
+            android:background="#00f000"
+            android:listSelector="#00000000"
+            />
     </FrameLayout>
 </com.android.launcher3.allapps.AllAppsContainerView>
