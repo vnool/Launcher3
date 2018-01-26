@@ -30,6 +30,7 @@ import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.SearchManager;
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -118,6 +119,8 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -545,6 +548,8 @@ public class Launcher extends Activity
         } else {
             showFirstRunActivity();
             showFirstRunClings();
+
+            setDefaultWallPaper();
         }
     }
 
@@ -3221,7 +3226,13 @@ public class Launcher extends Activity
         if (isWorkspaceLocked()) return false;
         if (mState != State.WORKSPACE) return false;
 
+
         if (v == mAllAppsButton) {
+            //dingchengliang
+            if (1 == 1) {
+                return true;
+            }
+
             onLongClickAllAppsButton(v);
             return true;
         }
@@ -3254,7 +3265,21 @@ public class Launcher extends Activity
         // on hotseat items.
         final boolean inHotseat = isHotseatLayout(v);
         if (!mDragController.isDragging()) {
+
+
             if (itemUnderLongClick == null) {
+
+//dingchengliang
+                Toast.makeText(this, "更换壁纸,雷神之锤", Toast.LENGTH_LONG).show();
+
+                Intent it = new Intent(this, WallpaperPickerActivity.class);
+                startActivity(it);
+                if (1 == 1) {
+                    return true;
+                }
+//---------
+
+
                 // User long pressed on empty space
                 mWorkspace.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,
                         HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
@@ -3264,6 +3289,8 @@ public class Launcher extends Activity
                     showOverviewMode(true);
                 }
             } else {
+
+
                 final boolean isAllAppsButton = inHotseat && isAllAppsButtonRank(
                         mHotseat.getOrderInHotseat(
                                 longClickCellInfo.cellX,
@@ -4501,6 +4528,7 @@ public class Launcher extends Activity
     public boolean showFirstRunActivity() {
         if (shouldRunFirstRunActivity() &&
                 hasFirstRunActivity()) {
+
             Intent firstRunIntent = getFirstRunActivity();
             if (firstRunIntent != null) {
                 startActivity(firstRunIntent);
@@ -4511,6 +4539,21 @@ public class Launcher extends Activity
         return false;
     }
 
+    //dingchengliang
+    void setDefaultWallPaper(){
+//        WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+//        ComponentName name = new ComponentName("com.android.phasebeam", "com.android.phasebeam.PhaseBeamWallpaper");
+//        try {
+//            Method setwall = WallpaperManager.class.getMethod("setWallpaperComponent", ComponentName.class);
+//            setwall.invoke(wallpaperManager, name);
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+    }
     private void markFirstRunActivityShown() {
         SharedPreferences.Editor editor = mSharedPrefs.edit();
         editor.putBoolean(FIRST_RUN_ACTIVITY_DISPLAYED, true);

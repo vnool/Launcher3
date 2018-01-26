@@ -243,7 +243,37 @@ public class LauncherModel extends BroadcastReceiver
 
         mLauncherApps = LauncherAppsCompat.getInstance(context);
         mUserManager = UserManagerCompat.getInstance(context);
+
+       //dingchengliang add@20180126
+        appArray = Utilities.getAppsComponentName(context);
     }
+    //dingchengliang add@20180126
+    static List<String> appArray = new ArrayList<String>();
+    //dingchengliang add@20180126
+    public static final void sortApps(ArrayList<AppInfo> apps) {
+        int length = appArray.size();
+        List<AppInfo> assignApps = new ArrayList<AppInfo>();
+        for(int i=0;i<length;i++) {
+            assignApps.add(i, null);
+        }
+        for(AppInfo app : apps){
+            for(int k=0; k<length; k++){
+                if (app.componentName.toString().equals(appArray.get(k))) {
+                    assignApps.set(k,app );
+                    continue;
+                }
+            }
+        }
+        for (int i =length -1;i > -1 ;i--) {
+            AppInfo app = assignApps.get(i);
+            if(app != null){
+                apps.remove(app);
+                apps.add(0, app);
+            }
+        }
+        Log.d(TAG ,"The Apps List after Sort!");
+    }
+
 
     /** Runs the specified runnable immediately if called from the main thread, otherwise it is
      * posted on the main thread handler. */

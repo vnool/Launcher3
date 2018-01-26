@@ -59,6 +59,8 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -135,6 +137,11 @@ public final class Utilities {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    //add @ dingchengliang
+    public static List<String> getAppsComponentName(final Context context) {
+        return Arrays.asList(context.getResources().getStringArray(R.array.apps_componentName));
     }
 
     /**

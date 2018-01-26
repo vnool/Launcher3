@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="apps_componentName" translatable="false">
+        <item>ComponentInfo{cn.zimeitang.friendnews/cn.zimeitang.friendnews.activity.MainActivity}</item>
+        <item>ComponentInfo{com.android.browser/com.android.browser.BrowserActivity}</item>
+        <item>ComponentInfo{com.android.settings/com.android.settings.Settings}</item>
+        <item>ComponentInfo{com.tencent.mm/com.tencent.mm.ui.LauncherUI}</item>
+        <item>ComponentInfo{com.android.mms/com.android.mms.ui.ConversationList}</item>
+    </string-array>
+</resources>
