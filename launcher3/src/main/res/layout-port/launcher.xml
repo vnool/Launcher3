@@ -35,6 +35,14 @@
             android:layout_height="52dp" />
 
         <!-- The workspace contains 5 screens of cells -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="神锤安全手机"
+            android:textSize="32sp"
+            android:textAlignment="center"
+            android:textColor="#88ffffff"/>
+
         <!-- DO NOT CHANGE THE ID -->
         <com.android.launcher3.Workspace
             android:id="@+id/workspace"

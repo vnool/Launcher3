@@ -15,4 +15,5 @@
      limitations under the License.
 -->
 <nine-patch xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/quantum_panel_bitmap" />
+    android:src="@drawable/quantum_panel_bitmap"
+    android:alpha="0.2"/>

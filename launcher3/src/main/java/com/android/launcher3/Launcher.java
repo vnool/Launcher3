@@ -953,6 +953,7 @@ public class Launcher extends Activity
             // it's possible that the add screen was removed because it was
             // empty and a re-bind occurred
             mWorkspace.addExtraEmptyScreen();
+
             return mWorkspace.commitExtraEmptyScreen();
         } else {
             return screenId;
@@ -4541,6 +4542,15 @@ public class Launcher extends Activity
 
     //dingchengliang
     void setDefaultWallPaper(){
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                TextView tv = new TextView(Launcher.this);
+//                tv.setText("xxxxx");
+//                mWorkspace.addView(tv);
+//            }
+//        },1000);
+
 //        WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
 //        ComponentName name = new ComponentName("com.android.phasebeam", "com.android.phasebeam.PhaseBeamWallpaper");
 //        try {
