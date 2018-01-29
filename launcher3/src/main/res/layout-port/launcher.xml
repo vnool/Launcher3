@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="神锤安全手机"
-            android:textSize="32sp"
+            android:textSize="28sp"
             android:textAlignment="center"
             android:textColor="#88ffffff"/>
 

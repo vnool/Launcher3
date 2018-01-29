@@ -2601,7 +2601,7 @@ public class Launcher extends Activity
     }
 
     /**
-     * Event handler for the "grid" button that appears on the home screen, which
+     *  //dingchengliang
      * enters all apps mode.
      *
      * @param v The view that was clicked.

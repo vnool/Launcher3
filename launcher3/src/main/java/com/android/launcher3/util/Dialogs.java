@@ -74,7 +74,7 @@ public class Dialogs {
         public void show() {
 
             final EditText textObj = new EditText(context);
-            textObj.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            textObj.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
             if (hintText != null) textObj.setHint(hintText);
             final AlertDialog askIMEIdialog = new AlertDialog.Builder(context)
                     .setTitle(title)
