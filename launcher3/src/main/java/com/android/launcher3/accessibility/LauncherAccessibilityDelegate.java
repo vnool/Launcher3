@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.AccessibilityDelegate;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityNodeInfo.AccessibilityAction;
+import android.widget.Toast;
 
 import com.android.launcher3.AppInfo;
 import com.android.launcher3.AppWidgetResizeFrame;
@@ -93,6 +94,7 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
     @Override
     public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(host, info);
+
         if (!(host.getTag() instanceof ItemInfo)) return;
         ItemInfo item = (ItemInfo) host.getTag();
 
@@ -133,6 +135,7 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
     }
 
     public boolean performAction(final View host, final ItemInfo item, int action) {
+
         if (action == REMOVE) {
             if (DeleteDropTarget.removeWorkspaceOrFolderItem(mLauncher, item, host)) {
                 announceConfirmation(R.string.item_removed);

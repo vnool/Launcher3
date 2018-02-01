@@ -54,6 +54,7 @@ public class DeleteDropTarget extends ButtonDropTarget {
 
     @Override
     protected boolean supportsDrop(DragSource source, Object info) {
+
         return source.supportsDeleteDropTarget() && supportsDrop(info);
     }
 

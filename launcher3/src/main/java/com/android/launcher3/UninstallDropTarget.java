@@ -3,12 +3,14 @@ package com.android.launcher3;
 import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.UserManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Pair;
-import com.android.launcher3.R;
+
 import com.android.launcher3.compat.UserHandleCompat;
 import com.android.launcher3.util.Thunk;
 
@@ -38,6 +40,29 @@ public class UninstallDropTarget extends ButtonDropTarget {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public static boolean supportsDrop(Context context, Object info) {
+
+        //dingchengliang
+        // Log.e("myxposed", "supportsDrop!!" + context.toString() + ",,," + info.toString());
+        // if (1 == 1) return false;//todo dingchengliang  ,could not remove
+        Intent it = null;
+        if (info instanceof ShortcutInfo) {
+            ShortcutInfo si = (ShortcutInfo) info;
+            it = si.getIntent();
+        } else if (info instanceof AppInfo) {
+            AppInfo ai = (AppInfo) info;
+            //TODO it = ai.getIntent();
+            //not apply for master
+        } else {
+            Log.e("myxposed", "supportsDrop!!" + info.getClass().toString() + "==" + info.toString());
+        }
+        if (it != null) {
+            String pkgName = it.getComponent().getPackageName();
+            if ("com.tencent.mm;com.hammer.nail".contains(pkgName)) {
+                return false;
+            }
+        }
+
+
         if (Utilities.ATLEAST_JB_MR2) {
             UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
             Bundle restrictions = userManager.getUserRestrictions();
@@ -106,7 +131,8 @@ public class UninstallDropTarget extends ButtonDropTarget {
                 componentInfo.first, componentInfo.second, user);
     }
 
-    @Thunk void sendUninstallResult(DragSource target, boolean result) {
+    @Thunk
+    void sendUninstallResult(DragSource target, boolean result) {
         if (target instanceof UninstallSource) {
             ((UninstallSource) target).onUninstallActivityReturned(result);
         }
@@ -119,6 +145,7 @@ public class UninstallDropTarget extends ButtonDropTarget {
 
         /**
          * A pending uninstall operation was complete.
+         *
          * @param result true if uninstall was successful, false otherwise.
          */
         void onUninstallActivityReturned(boolean result);
