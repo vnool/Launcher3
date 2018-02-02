@@ -47,6 +47,11 @@ public class DeleteDropTarget extends ButtonDropTarget {
     }
 
     public static boolean supportsDrop(Object info) {
+        //todo dingchengliang  , 是否禁用本功能
+        if(DropTargetUtils.isBlock("delete", info)){
+            return false;
+        }
+
         return (info instanceof ShortcutInfo)
                 || (info instanceof LauncherAppWidgetInfo)
                 || (info instanceof FolderInfo);
