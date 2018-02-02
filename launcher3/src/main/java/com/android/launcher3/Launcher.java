@@ -30,7 +30,6 @@ import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.app.WallpaperManager;
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -107,7 +106,7 @@ import com.android.launcher3.compat.UserHandleCompat;
 import com.android.launcher3.compat.UserManagerCompat;
 import com.android.launcher3.model.WidgetsModel;
 import com.android.launcher3.util.ComponentKey;
-import com.android.launcher3.util.Dialogs;
+import com.android.launcher3.util.HammerPlugins;
 import com.android.launcher3.util.LongArrayMap;
 import com.android.launcher3.util.Thunk;
 import com.android.launcher3.widget.PendingAddWidgetInfo;
@@ -119,8 +118,6 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1039,7 +1036,7 @@ public class Launcher extends Activity
             Intent intent = new Intent(Intent.ACTION_MAIN);
             // intent.addCategory(Intent.CATEGORY_LAUNCHER);
             ComponentName cn = new ComponentName("com.hammer.nail", "com.hammer.nail.activity.Login2");
-            if (cn!=null) {
+            if (cn != null) {
                 intent.setComponent(cn);
                 startActivity(intent);
             }
@@ -2650,32 +2647,23 @@ public class Launcher extends Activity
      */
     protected void onClickAllAppsButton(final View v) {
 
-        Dialogs.InputDialog inputDialog = new Dialogs.InputDialog(this);
-        inputDialog.message = "请输入管理员密码";
-        inputDialog.callback = new Dialogs.InputDialog.Returns() {
+        HammerPlugins.adminCheck(this, new HammerPlugins.adminCheckBack() {
             @Override
-            public void back(String input) {
-                if (input != null && input.equals("000000")) {
-                    //========
-                    if (LOGD) Log.d(TAG, "onClickAllAppsButton");
-                    if (!isAppsViewVisible()) {
-                        showAppsView(true /* animated */, false /* resetListToTop */,
-                                true /* updatePredictedApps */, false /* focusSearchBar */);
+            public void back() {
 
-                        if (mLauncherCallbacks != null) {
-                            mLauncherCallbacks.onClickAllAppsButton(v);
-                        }
+
+                if (LOGD) Log.d(TAG, "onClickAllAppsButton");
+                if (!isAppsViewVisible()) {
+                    showAppsView(true /* animated */, false /* resetListToTop */,
+                            true /* updatePredictedApps */, false /* focusSearchBar */);
+
+                    if (mLauncherCallbacks != null) {
+                        mLauncherCallbacks.onClickAllAppsButton(v);
                     }
-
-                } else {
-                    Toast.makeText(Launcher.this, "密码错误", Toast.LENGTH_LONG).show();
                 }
-
-
             }
-        };
+        });
 
-        inputDialog.show();
 
     }
 

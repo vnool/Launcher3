@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Pair;
 
 import com.android.launcher3.compat.UserHandleCompat;
+import com.android.launcher3.util.HammerPlugins;
 import com.android.launcher3.util.Thunk;
 
 public class UninstallDropTarget extends ButtonDropTarget {
@@ -42,7 +43,7 @@ public class UninstallDropTarget extends ButtonDropTarget {
         //dingchengliang
 
         //todo dingchengliang  , 是否禁用本功能
-        if(DropTargetUtils.isBlock("uninstall", info)){
+        if(HammerPlugins.isWorkspaceBlock("uninstall", info)){
             return false;
         }
 

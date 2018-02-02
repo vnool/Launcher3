@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import com.android.launcher3.util.FlingAnimation;
+import com.android.launcher3.util.HammerPlugins;
 import com.android.launcher3.util.Thunk;
 
 public class DeleteDropTarget extends ButtonDropTarget {
@@ -48,7 +49,7 @@ public class DeleteDropTarget extends ButtonDropTarget {
 
     public static boolean supportsDrop(Object info) {
         //todo dingchengliang  , 是否禁用本功能
-        if(DropTargetUtils.isBlock("delete", info)){
+        if(HammerPlugins.isWorkspaceBlock("delete", info)){
             return false;
         }
 
