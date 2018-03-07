@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Password4Hammer</string>
+    <string name="large_text">
+        "这是雷神安全手机app管理员密码查看器，\n"
+        "密码每天更新一次。"
+    </string>
+    <string name="action_settings">Settings</string>
+</resources>

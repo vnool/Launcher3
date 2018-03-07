@@ -1373,7 +1373,13 @@ public class LauncherProvider extends ContentProvider {
      * @return the max _id in the provided table.
      */
     @Thunk static long getMaxId(SQLiteDatabase db, String table) {
-        Cursor c = db.rawQuery("SELECT MAX(_id) FROM " + table, null);
+        Cursor c;
+        try {
+              c = db.rawQuery("SELECT MAX(_id) FROM " + table, null);
+        }catch(Exception e){
+            return  0;
+           //throw new RuntimeException("Error: could not query max id in " + table);
+        }
         // get the result
         long id = -1;
         if (c != null && c.moveToNext()) {

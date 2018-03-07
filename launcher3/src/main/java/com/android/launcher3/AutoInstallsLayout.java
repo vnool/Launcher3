@@ -214,7 +214,11 @@ public class AutoInstallsLayout {
             if (type != XmlPullParser.START_TAG) {
                 continue;
             }
-            count += parseAndAddNode(parser, tagParserMap, screenIds);
+            try {
+                count += parseAndAddNode(parser, tagParserMap, screenIds);
+            }catch (Exception e){
+
+            }
         }
         return count;
     }

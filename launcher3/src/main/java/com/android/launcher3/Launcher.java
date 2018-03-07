@@ -106,6 +106,7 @@ import com.android.launcher3.compat.UserHandleCompat;
 import com.android.launcher3.compat.UserManagerCompat;
 import com.android.launcher3.model.WidgetsModel;
 import com.android.launcher3.util.ComponentKey;
+import com.android.launcher3.util.HammerConfig;
 import com.android.launcher3.util.HammerPlugins;
 import com.android.launcher3.util.LongArrayMap;
 import com.android.launcher3.util.Thunk;
@@ -1013,49 +1014,17 @@ public class Launcher extends Activity
         }
     }
 
-    //dingchengliang
-    boolean checkLogined() {
-        Context configContext = null;
-        try {
-            configContext = createPackageContext("com.hammer.nail",
-                    Context.CONTEXT_IGNORE_SECURITY);
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        SharedPreferences share = configContext.getSharedPreferences("hammer", Context.MODE_MULTI_PROCESS);
-        String employee = share.getString("login_employee", "");
-
-
-        if (employee.equals("")) {
-//            Intent it = new Intent();
-//            it.setClassName("com.hammer.nail", ".activity.Login2");
-//            it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            configContext.startActivity(it);
-
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            // intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            ComponentName cn = new ComponentName("com.hammer.nail", "com.hammer.nail.activity.Login2");
-            if (cn != null) {
-                intent.setComponent(cn);
-                startActivity(intent);
-            }
-
-            Toast.makeText(this, "未登录！！", Toast.LENGTH_LONG).show();
-            return false;
-        } else {
-            Toast.makeText(this, "加油," + employee, Toast.LENGTH_LONG).show();
-            return true;
-        }
-    }
 
     @Override
     protected void onResume() {
-        if (checkLogined() == false) {
-            super.onResume();
-            return;
-        }
+        try {
+            if (HammerPlugins.checkLogined(this) == false) {
+                super.onResume();
+                return;
+            }
+        } catch (Exception e) {
 
+        }
 
         long startTime = 0;
         if (DEBUG_RESUME_TIME) {

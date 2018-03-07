@@ -59,18 +59,18 @@
             launcher:y="3"/>
     </resolve>
 
-    <resolve
-        launcher:screen="1"
-        launcher:x="2"
-        launcher:y="2"
-        launcher:spanX="2"
-        launcher:spanY="2">
-        <appwidget
-            launcher:packageName="com.miui.notes"
-            launcher:className="com.miui.notes.widget.NoteWidgetProvider_4x"
-            launcher:x="2"
-            launcher:y="3"/>
-    </resolve>
+    <!--<resolve-->
+        <!--launcher:screen="1"-->
+        <!--launcher:x="2"-->
+        <!--launcher:y="2"-->
+        <!--launcher:spanX="2"-->
+        <!--launcher:spanY="2">-->
+        <!--<appwidget-->
+            <!--launcher:packageName="com.miui.notes"-->
+            <!--launcher:className="com.miui.notes.widget.NoteWidgetProvider_4x"-->
+            <!--launcher:x="2"-->
+            <!--launcher:y="3"/>-->
+    <!--</resolve>-->
 
 
     <!--<resolve-->
@@ -92,27 +92,46 @@
         launcher:className="cn.zimeitang.friendnews.activity.MainActivity"
         launcher:packageName="cn.zimeitang.friendnews"
         launcher:screen="0"
-        launcher:x="4"
+        launcher:x="2"
         launcher:y="3"
         />
-    <appwidget
-        launcher:className="com.android.calendar.widget.AgendaWidgetProvider"
-        launcher:packageName="com.android.calendar"
-        launcher:screen="0"
-        launcher:x="2"
-        launcher:y="1"
-        launcher:spanX="3"
-        launcher:spanY="2"/>
 
-
-    <appwidget
-        launcher:className="com.android.calendar.widget.MonthWidgetProvider"
-        launcher:packageName="com.android.calendar"
+    <favorite
+        launcher:className="com.hammer.nail.activity.SalerLogin2"
+        launcher:packageName="com.hammer.nail"
         launcher:screen="0"
         launcher:x="1"
-        launcher:y="1"
-        launcher:spanX="3"
-        launcher:spanY="2"/>
+        launcher:y="2"
+        />
+
+    <favorite
+        launcher:className="com.hammer.nail.activity.XiadanActivity"
+        launcher:packageName="com.hammer.nail"
+        launcher:screen="0"
+        launcher:x="2"
+        launcher:y="2"
+        />
+    <favorite
+        launcher:className="com.hammer.nail.activity.settings.Databak"
+        launcher:packageName="com.hammer.nail"
+        launcher:screen="0"
+        launcher:x="3"
+        launcher:y="2"
+        />
+    <favorite
+        launcher:className="com.hammer.nail.activity.settings.TimelineCreator"
+        launcher:packageName="com.hammer.nail"
+        launcher:screen="0"
+        launcher:x="1"
+        launcher:y="2"
+        />
+    <favorite
+        launcher:className="com.hammer.nail.activity.settings.Ai"
+        launcher:packageName="com.hammer.nail"
+        launcher:screen="0"
+        launcher:x="0"
+        launcher:y="2"
+        />
 
     <appwidget
         launcher:className="com.miui.notes.widget.NoteWidgetProvider_4x"
