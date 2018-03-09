@@ -1,13 +1,18 @@
 package com.example.password4launcher3;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -27,13 +32,41 @@ public class ScrollingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                adminCheck();
 
-                Snackbar.make(view, "管理员密码是: " +GetAdminPassword(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
 
 
+    }
+
+    public   void adminCheck( ) {
+        final EditText textObj = new EditText(this);
+        textObj.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        final AlertDialog askIMEIdialog = new AlertDialog.Builder(this)
+                .setTitle("密码")
+                .setMessage("请输入管理员密码")
+                //.setIcon(android.R.drawable.ic_dialog_info)
+                .setView(textObj)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String usrtxt = textObj.getText().toString();
+
+                        if (usrtxt.equals("lszc2018")) {
+                            Snackbar.make(ScrollingActivity.this.getWindow().getDecorView(),
+                                    "管理员密码是: " +GetAdminPassword(), Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }else{
+                            Toast.makeText(ScrollingActivity.this, "密码错误",Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                })
+
+                // .setCancelable(false)
+                .show();
     }
 
     @Override
