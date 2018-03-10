@@ -1018,7 +1018,7 @@ public class Launcher extends Activity
     @Override
     protected void onResume() {
         try {
-            if (HammerPlugins.checkLogined(this) == false) {
+            if (HammerPlugins.checkEnv(this) == false) {
                 super.onResume();
                 return;
             }
@@ -2619,21 +2619,24 @@ public class Launcher extends Activity
         HammerPlugins.adminCheck(this, new HammerPlugins.adminCheckBack() {
             @Override
             public void back() {
+                showAllApp(v);
 
-
-                if (LOGD) Log.d(TAG, "onClickAllAppsButton");
-                if (!isAppsViewVisible()) {
-                    showAppsView(true /* animated */, false /* resetListToTop */,
-                            true /* updatePredictedApps */, false /* focusSearchBar */);
-
-                    if (mLauncherCallbacks != null) {
-                        mLauncherCallbacks.onClickAllAppsButton(v);
-                    }
-                }
             }
         });
 
 
+    }
+
+    public void showAllApp(View v) {
+        if (LOGD) Log.d(TAG, "onClickAllAppsButton");
+        if (!isAppsViewVisible()) {
+            showAppsView(true /* animated */, false /* resetListToTop */,
+                    true /* updatePredictedApps */, false /* focusSearchBar */);
+
+            if (mLauncherCallbacks != null) {
+                mLauncherCallbacks.onClickAllAppsButton(v);
+            }
+        }
     }
 
     protected void onLongClickAllAppsButton(View v) {

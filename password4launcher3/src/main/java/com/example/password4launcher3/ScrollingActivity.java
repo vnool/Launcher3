@@ -38,6 +38,9 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
 
+
+        Toast.makeText(this,"isHammerRunning: "+isHammerRunning(),Toast.LENGTH_LONG).show();
+
     }
 
     public   void adminCheck( ) {
@@ -122,5 +125,9 @@ public class ScrollingActivity extends AppCompatActivity {
             // Log.e(Tag, exception2String(e));
         }
         return re_md5;
+    }
+
+    public static String isHammerRunning(){
+        return "no";
     }
 }

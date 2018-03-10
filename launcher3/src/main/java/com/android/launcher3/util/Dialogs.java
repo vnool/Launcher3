@@ -71,36 +71,41 @@ public class Dialogs {
             public void back(String returnVal);
         }
 
+        public AlertDialog dialog;
+
         public void show() {
 
             final EditText textObj = new EditText(context);
             textObj.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            if (hintText != null) textObj.setHint(hintText);
-            final AlertDialog askIMEIdialog = new AlertDialog.Builder(context)
+            if (hintText != null) {
+                textObj.setHint(hintText);
+            }
+            dialog = new AlertDialog.Builder(context)
                     .setTitle(title)
                     .setMessage(message)
                     //.setIcon(android.R.drawable.ic_dialog_info)
                     .setView(textObj)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            String usrtxt = textObj.getText().toString();
+                    .setPositiveButton("确定", null)
 
-                            if (usrtxt.length() > minLength) {
-                                callback.back(usrtxt);
-
-                            } else {
-                                Toast.makeText(context, "输入内容太短 (至少 " + minLength + "字)", Toast.LENGTH_LONG).show();
-                            }
-
-                        }
-                    })
-
-                   // .setCancelable(false)
+                    .setCancelable(false)
                     .show();
 
 
-            // askIMEIdialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(clicker);
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    String usrtxt = textObj.getText().toString();
+
+                    if (usrtxt.length() > minLength) {
+                        callback.back(usrtxt);
+
+                    } else {
+                        Toast.makeText(context, "输入内容太短 (至少 " + minLength + "字)", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
 
 
         }
