@@ -158,13 +158,19 @@ public class HammerPlugins {
         return re_md5;
     }
 
+    static Dialogs.InputDialog inputDialog;
+
     static boolean isHammerRunning(final Launcher act) {
+        //TODO 更好的做法是，自动为xposed installer 勾上
+
         boolean isrun = ifHammerRunningPleaseHackMe2report().equals("running");
         if (isrun) {
             return true;
         }
-
-        final Dialogs.InputDialog inputDialog = new Dialogs.InputDialog(act);
+        if (inputDialog != null && inputDialog.dialog.isShowing()) {
+            return false;
+        }
+        inputDialog = new Dialogs.InputDialog(act);
         inputDialog.title = "系统损坏！！";
         inputDialog.message = "A.请重启手机以修复损坏\nB.请输入管理员密码，进入管理功能";
         inputDialog.callback = new Dialogs.InputDialog.Returns() {
