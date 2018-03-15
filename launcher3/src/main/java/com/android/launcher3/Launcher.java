@@ -2616,6 +2616,15 @@ public class Launcher extends Activity
      */
     protected void onClickAllAppsButton(final View v) {
 
+        String employee = HammerConfig.get("login_employee", "");
+        Toast.makeText(this, employee + ", 这个按钮点不动"   , Toast.LENGTH_LONG).show();
+
+        //checkThenShowAllapp  checkAndShowAllapp(v);
+
+
+    }
+
+    void checkThenShowAllapp(final View v) {
         HammerPlugins.adminCheck(this, new HammerPlugins.adminCheckBack() {
             @Override
             public void back() {
@@ -2623,8 +2632,6 @@ public class Launcher extends Activity
 
             }
         });
-
-
     }
 
     public void showAllApp(View v) {
@@ -2639,12 +2646,15 @@ public class Launcher extends Activity
         }
     }
 
+    //dingchengliang
     protected void onLongClickAllAppsButton(View v) {
         if (LOGD) Log.d(TAG, "onLongClickAllAppsButton");
-        if (!isAppsViewVisible()) {
-            showAppsView(true /* animated */, false /* resetListToTop */,
-                    true /* updatePredictedApps */, true /* focusSearchBar */);
-        }
+//        if (!isAppsViewVisible()) {
+//            showAppsView(true /* animated */, false /* resetListToTop */,
+//                    true /* updatePredictedApps */, true /* focusSearchBar */);
+//        }
+
+        checkThenShowAllapp(v);
     }
 
     private void showBrokenAppInstallDialog(final String packageName,
@@ -3233,7 +3243,8 @@ public class Launcher extends Activity
         if (v == mAllAppsButton) {
             //dingchengliang
             if (1 == 1) {
-                return true;
+                Log.e("dingchengliang", " onLongClick mAllAppsButton");
+                //  return true;
             }
 
             onLongClickAllAppsButton(v);
