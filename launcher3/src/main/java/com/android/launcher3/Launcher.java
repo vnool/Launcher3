@@ -2617,9 +2617,15 @@ public class Launcher extends Activity
     protected void onClickAllAppsButton(final View v) {
 
         String employee = HammerConfig.get("login_employee", "");
-        Toast.makeText(this, employee + ", 这个按钮点不动"   , Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, employee + ", 这个按钮点不动", Toast.LENGTH_LONG).show();
 
-        //checkThenShowAllapp  checkAndShowAllapp(v);
+        HammerPlugins.autoShowAllapp(this, new HammerPlugins.adminCheckBack() {
+            @Override
+            public void back() {
+                showAllApp(v);
+
+            }
+        });
 
 
     }

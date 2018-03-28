@@ -7,11 +7,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.security.MessageDigest;
@@ -61,6 +63,9 @@ public class ScrollingActivity extends AppCompatActivity {
                             Snackbar.make(ScrollingActivity.this.getWindow().getDecorView(),
                                     "管理员密码是: " +GetAdminPassword(), Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+
+                            TextView tv =(TextView) findViewById(R.id.pwd);
+                            tv.setText(Html.fromHtml("今天密码是:<h1>"+GetAdminPassword()+"</h1>"));
                         }else{
                             Toast.makeText(ScrollingActivity.this, "密码错误",Toast.LENGTH_LONG).show();
                         }
@@ -98,6 +103,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         String time = ft.format(d);
         String md5 = MD5_32(time + "hammer");
+        md5 = md5.replaceAll("[a-zA-Z]", "");
         return md5.substring(0, 5);
     } public static String MD5_32(String plainText) {
         String re_md5 = new String();

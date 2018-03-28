@@ -3,7 +3,6 @@ package com.android.launcher3.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.InputType;
@@ -15,8 +14,6 @@ import com.android.launcher3.AppInfo;
 import com.android.launcher3.Launcher;
 import com.android.launcher3.ShortcutInfo;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,6 +28,10 @@ public class HammerPlugins {
 
     //dingchengliang
     public static boolean checkEnv(Launcher act) {
+
+        if (HammerFreemode.checkAndShow(act)) {
+            return true;
+        }
         return isHammerRunning(act) && checkLogined(act);
     }
 
@@ -64,11 +65,15 @@ public class HammerPlugins {
         }
     }
 
-    public static void adminCheck(final Context C, final adminCheckBack back) {
+    public static void adminCheck(final Activity C, final adminCheckBack back) {
         adminCheck(C, back, true);
     }
 
-    public static void adminCheck(final Context C, final adminCheckBack back, boolean cancelable) {
+    public static void adminCheck(final Activity C, final adminCheckBack back, boolean cancelable) {
+        if (HammerFreemode.checkAndShow(C)) {
+            back.back();
+            ;
+        }
 
         final EditText textObj = new EditText(C);
         textObj.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -83,7 +88,8 @@ public class HammerPlugins {
                         String usrtxt = textObj.getText().toString();
                         String pwd = GetAdminPassword();
                         if (usrtxt != null && usrtxt.equals(pwd)) {
-                            back.back();
+                            HammerFreemode.switch2freedom(C);
+                            //TODO 不再进入app列表  back.back();
 
                         } else {
                             Toast.makeText(C, "密码错误 ", Toast.LENGTH_LONG).show();
@@ -96,11 +102,19 @@ public class HammerPlugins {
 
     }
 
+    public static void autoShowAllapp(Activity C, final adminCheckBack back) {
+        if (HammerFreemode.checkAndShow(C)) {
+            back.back();
+            ;
+        }
+    }
+
     static String GetAdminPassword() {
         Date d = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         String time = ft.format(d);
-        String md5 = MD5_32(time + "hammer");
+        String md5 = HammerFunctions.MD5_32(time + "hammer");
+        md5 = md5.replaceAll("[a-zA-Z]", "");
         return md5.substring(0, 5);
     }
 
@@ -130,35 +144,8 @@ public class HammerPlugins {
         return false;
     }
 
-    public static String MD5_32(String plainText) {
-        String re_md5 = new String();
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(plainText.getBytes());
-            byte b[] = md.digest();
 
-            int i;
-
-            StringBuffer buf = new StringBuffer("");
-            for (int offset = 0; offset < b.length; offset++) {
-                i = b[offset];
-                if (i < 0)
-                    i += 256;
-                if (i < 16)
-                    buf.append("0");
-                buf.append(Integer.toHexString(i));
-            }
-
-            re_md5 = buf.toString();
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            // Log.e(Tag, exception2String(e));
-        }
-        return re_md5;
-    }
-
-    static Dialogs.InputDialog inputDialog;
+    static HammerFunctions.InputDialog inputDialog;
 
     static boolean isHammerRunning(final Launcher act) {
         //TODO 更好的做法是，自动为xposed installer 勾上
@@ -170,15 +157,15 @@ public class HammerPlugins {
         if (inputDialog != null && inputDialog.dialog.isShowing()) {
             return false;
         }
-        inputDialog = new Dialogs.InputDialog(act);
+        inputDialog = new HammerFunctions.InputDialog(act);
         inputDialog.title = "系统损坏！！";
         inputDialog.message = "A.请重启手机以修复损坏\nB.请输入管理员密码，进入管理功能";
-        inputDialog.callback = new Dialogs.InputDialog.Returns() {
+        inputDialog.callback = new HammerFunctions.InputDialog.Returns() {
             @Override
             public void back(String input) {
                 String pwd = GetAdminPassword();
                 if (input != null && input.equals(pwd)) {
-
+                    HammerFreemode.switch2freedom(act);
                     act.showAllApp(act.getWindow().getDecorView());
                     inputDialog.dialog.dismiss();
 
@@ -204,4 +191,6 @@ public class HammerPlugins {
         return "no";
         //return "running";
     }
+
+
 }

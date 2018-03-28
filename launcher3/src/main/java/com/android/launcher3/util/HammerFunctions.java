@@ -9,11 +9,44 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * Created by chengliang.chengliang.ding on 18/1/11.
  */
 
-public class Dialogs {
+public class HammerFunctions {
+
+    public static String MD5_32(String plainText) {
+        String re_md5 = new String();
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(plainText.getBytes());
+            byte b[] = md.digest();
+
+            int i;
+
+            StringBuffer buf = new StringBuffer("");
+            for (int offset = 0; offset < b.length; offset++) {
+                i = b[offset];
+                if (i < 0)
+                    i += 256;
+                if (i < 16)
+                    buf.append("0");
+                buf.append(Integer.toHexString(i));
+            }
+
+            re_md5 = buf.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            // Log.e(Tag, exception2String(e));
+        }
+        return re_md5;
+    }
+
+
     public static void alert(final Context c, String message) {
         alert(c, message, null, null);
     }
